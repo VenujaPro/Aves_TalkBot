@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Advanced Aves AI Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            background: radial-gradient(circle, #1a1a1a, #121212);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 4rem;
+            color: #00c6ff;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 4px;
+            text-shadow: 0 0 15px #0072ff;
+            animation: gradientText 3s infinite;
+        }
+
+        @keyframes gradientText {
+            0% { color: #00c6ff; }
+            50% { color: #0072ff; }
+            100% { color: #00c6ff; }
+        }
+
+        #login-section {
+            display: block;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        input {
+            padding: 15px;
+            font-size: 1.3rem;
+            width: 300px;
+            margin-top: 20px;
+            border-radius: 30px;
+            border: 2px solid #0072ff;
+            background: #333;
+            color: white;
+            outline: none;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        input:focus {
+            border-color: #00c6ff;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        button {
+            padding: 18px 40px;
+            font-size: 1.6rem;
+            color: white;
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #0072ff, #00c6ff);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        #assistant-section {
+            display: none;
+            margin-top: 30px;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-size: 1.4rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            width: 80%;
+            max-width: 700px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+
+        #output:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        footer a {
+            color: #00c6ff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Aves AI Assistant</h1>
+
+    <!-- Ad Section -->
+    <div>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6730038089764028"
+             crossorigin="anonymous"></script>
+        <!-- NEw -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6730038089764028"
+             data-ad-slot="3107227296"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <!-- Login Section -->
+    <div id="login-section">
+        <input type="text" id="username" placeholder="Enter your name" />
+        <button onclick="login()">Login</button>
+    </div>
+
+    <!-- The Aves AI Assistant -->
+    <div id="assistant-section">
+        <button onclick="startListening()">
+            <i class="fas fa-microphone"></i> Talk to Aves AI
+        </button>
+        <div id="output">Hi there! How can I assist you today?</div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        Powered by <a href="#">AVES AI</a>
+    </footer>
+
+    <script>
+        function speak(message) {
+            const speech = new SpeechSynthesisUtterance(message);
+            speech.pitch = 1;
+            speech.rate = 1;
+            speech.volume = 1;
+            window.speechSynthesis.speak(speech);
+        }
+
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        function login() {
+            const username = document.getElementById("username").value.trim();
+            if (!username) {
+                alert("Please enter a valid name.");
+                return;
+            }
+
+            document.getElementById("login-section").style.display = "none";
+            document.getElementById("assistant-section").style.display = "block";
+
+            const greetingMessage = `Hi ${username}, I'm Aves AI! How can I assist you today?`;
+            speak(greetingMessage);
+            document.getElementById("output").innerText = greetingMessage;
+        }
+
+        function startListening() {
+            recognition.start();
+            document.getElementById("output").innerText = "Listening...";
+            speak("I am ready to assist you.");
+        }
+
+        recognition.onresult = (event) => {
+            const command = event.results[0][0].transcript.toLowerCase();
+            document.getElementById("output").innerText = `You said: ${command}`;
+            processCommand(command);
+        };
+
+        function processCommand(command) {
+            if (command.includes("open google")) {
+                speak("Opening Google");
+                window.open("https://www.google.com", "_blank");
+            } else if (command.includes("time")) {
+                const time = new Date().toLocaleTimeString();
+                speak(`The current time is ${time}`);
+            } else if (command.includes("calculate")) {
+                try {
+                    const result = eval(command.replace("calculate", ""));
+                    speak(`The result is ${result}`);
+                } catch {
+                    speak("Sorry, I couldn't calculate that.");
+                }
+            } else {
+                speak("I don't understand that command.");
+            }
+        }
+
+        recognition.onerror = (event) => {
+            document.getElementById("output").innerText = `Error: ${event.error}`;
+            speak("Something went wrong. Please try again.");
+        };
+    </script>
+</body>
+</html>
