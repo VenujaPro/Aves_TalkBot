@@ -225,6 +225,30 @@
                 } catch {
                     speak("Sorry, I couldn't calculate that.");
                 }
+            } else if (command.includes("tell me a joke")) {
+                const jokes = [
+                    "Why don't skeletons fight each other? They don't have the guts!",
+                    "Why did the scarecrow win an award? Because he was outstanding in his field!",
+                    "I told my computer I needed a break, now it won’t stop sending me Kit-Kats!",
+                ];
+                const joke = jokes[Math.floor(Math.random() * jokes.length)];
+                speak(joke);
+                document.getElementById("output").innerText = joke;
+            } else if (command.includes("weather")) {
+                fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=YOUR_API_KEY')
+                    .then(response => response.json())
+                    .then(data => {
+                        const weather = `The weather in ${data.name} is ${data.weather[0].description} with a temperature of ${(data.main.temp - 273.15).toFixed(2)}°C.`;
+                        speak(weather);
+                        document.getElementById("output").innerText = weather;
+                    });
+            } else if (command.includes("change background color")) {
+                document.body.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+                speak("Background color changed!");
+            } else if (command.includes("open")) {
+                const website = command.replace("open", "").trim();
+                speak(`Opening ${website}`);
+                window.open(`https://${website}.com`, "_blank");
             } else {
                 speak("I don't understand that command.");
             }
