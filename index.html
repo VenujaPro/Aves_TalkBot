@@ -3,142 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Advanced Aves AI Assistant</title>
+    <title>Aves AI 2.8</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* Base setup */
         body {
-            font-family: "Arial", sans-serif;
-            background: radial-gradient(circle, #1a1a1a, #121212);
-            color: white;
-            text-align: center;
             margin: 0;
             padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: #010101;
+            color: #00ffcc;
+            overflow: hidden;
             height: 100vh;
+            perspective: 1500px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
         }
+
+        /* Fractal particle system */
+        .fractal-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .fractal-particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #00ffcc;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #00ffcc, 0 0 30px #ff00cc;
+            animation: fractalMove 6s infinite ease-in-out;
+        }
+        @keyframes fractalMove {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 0.7; }
+            25% { transform: translate(60px, -40px) scale(1.3) rotate(90deg); opacity: 0.9; }
+            50% { transform: translate(-50px, 50px) scale(0.8) rotate(180deg); opacity: 0.6; }
+            75% { transform: translate(40px, 30px) scale(1.2) rotate(270deg); opacity: 0.8; }
+            100% { transform: translate(0, 0) scale(1) rotate(360deg); opacity: 0.7; }
+        }
+        .fractal-particle:nth-child(1) { top: 20%; left: 30%; animation-delay: 0s; }
+        .fractal-particle:nth-child(2) { top: 50%; left: 70%; animation-delay: 1s; }
+        .fractal-particle:nth-child(3) { top: 80%; left: 40%; animation-delay: 2s; }
+        .fractal-particle:nth-child(4) { top: 30%; left: 90%; animation-delay: 3s; }
+        .fractal-particle:nth-child(5) { top: 60%; left: 20%; animation-delay: 4s; }
+
+        /* Interactive neural network */
+        .neural-net {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .neural-line {
+            position: absolute;
+            background: rgba(0, 255, 204, 0.3);
+            animation: pulseLine 3s infinite;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        .neural-line:hover {
+            transform: scale(1.1);
+            opacity: 0.6;
+        }
+        .neural-line:nth-child(1) { width: 2px; height: 350px; top: 5%; left: 15%; transform: rotate(30deg); }
+        .neural-line:nth-child(2) { width: 450px; height: 2px; top: 35%; left: 55%; transform: rotate(-45deg); }
+        .neural-line:nth-child(3) { width: 2px; height: 250px; top: 65%; left: 75%; transform: rotate(60deg); }
+        .neural-node {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #00ffcc;
+            border-radius: 50%;
+            animation: pulseNode 1.5s infinite;
+            transition: transform 0.3s ease;
+        }
+        .neural-node:hover {
+            transform: scale(1.8);
+            box-shadow: 0 0 25px #00ffcc;
+        }
+        .neural-node:nth-child(4) { top: 25%; left: 30%; }
+        .neural-node:nth-child(5) { top: 50%; left: 70%; }
+        .neural-node:nth-child(6) { top: 80%; left: 50%; }
+        @keyframes pulseLine {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+        @keyframes pulseNode {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 5px #00ffcc; }
+            50% { transform: scale(1.5); box-shadow: 0 0 15px #00ffcc; }
+        }
+
+        /* 3D Holographic header */
         h1 {
-            font-size: 4rem;
-            color: #00c6ff;
-            margin-bottom: 30px;
+            font-size: 90px;
             text-transform: uppercase;
-            font-weight: 800;
-            letter-spacing: 4px;
-            text-shadow: 0 0 15px #0072ff;
-            animation: gradientText 3s infinite;
+            background: linear-gradient(45deg, #00ffcc, #ff00cc);
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: hologram 4s infinite;
+            transform-style: preserve-3d;
+            transform: rotateX(20deg) translateZ(50px);
+            margin-bottom: 50px;
+            z-index: 2;
+            text-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+        }
+        @keyframes hologram {
+            0%, 100% { transform: rotateX(20deg) translateZ(50px); opacity: 0.9; filter: brightness(1); }
+            50% { transform: rotateX(25deg) translateZ(70px); opacity: 1; filter: brightness(1.5) blur(2px); }
         }
 
-        @keyframes gradientText {
-            0% { color: #00c6ff; }
-            50% { color: #0072ff; }
-            100% { color: #00c6ff; }
-        }
-
+        /* Login section */
         #login-section {
-            display: block;
-            animation: fadeInUp 1.5s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: emerge 2s ease-out;
+            z-index: 2;
         }
-
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
+        @keyframes emerge {
+            0% { opacity: 0; transform: translateZ(-200px) scale(0.8); }
+            100% { opacity: 1; transform: translateZ(0) scale(1); }
         }
-
         input {
             padding: 15px;
             font-size: 1.3rem;
-            width: 300px;
-            margin-top: 20px;
+            width: 320px;
+            margin-top: 25px;
             border-radius: 30px;
-            border: 2px solid #0072ff;
-            background: #333;
-            color: white;
+            border: 2px solid #00ffcc;
+            background: rgba(0, 0, 0, 0.8);
+            color: #00ffcc;
             outline: none;
-            transition: border-color 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
         }
-
         input:focus {
-            border-color: #00c6ff;
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            border-color: #ff00cc;
+            transform: scale(1.08);
+            box-shadow: 0 0 30px rgba(255, 0, 204, 0.6);
         }
 
+        /* Buttons with ripple overlay */
         button {
-            padding: 18px 40px;
-            font-size: 1.6rem;
-            color: white;
-            background: linear-gradient(45deg, #00c6ff, #0072ff);
-            border: none;
+            padding: 20px 50px;
+            font-size: 1.8rem;
+            color: #00ffcc;
+            background: transparent;
+            border: 3px solid #00ffcc;
             border-radius: 50px;
             cursor: pointer;
-            margin-top: 25px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
+            margin-top: 30px;
+            transition: all 0.4s ease;
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 15px;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
         }
-
         button:hover {
-            background: linear-gradient(45deg, #0072ff, #00c6ff);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            background: rgba(0, 255, 204, 0.15);
+            transform: scale(1.12);
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.6);
+        }
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, #ff00cc 20%, transparent 60%);
+            animation: rippleWave 3s infinite;
+            transform: translate(-50%, -50%);
+        }
+        @keyframes rippleWave {
+            0% { width: 0; height: 0; opacity: 0.8; }
+            50% { width: 250px; height: 250px; opacity: 0.4; }
+            100% { width: 400px; height: 400px; opacity: 0; }
         }
 
+        /* Assistant section */
         #assistant-section {
             display: none;
-            margin-top: 30px;
+            margin-top: 40px;
+            z-index: 2;
         }
-
         #output {
-            margin-top: 20px;
-            font-size: 1.4rem;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 20px;
-            width: 80%;
-            max-width: 700px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(15px);
-            transition: all 0.3s ease;
+            margin-top: 25px;
+            font-size: 1.5rem;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 35px;
+            border-radius: 25px;
+            width: 85%;
+            max-width: 750px;
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.4);
+            backdrop-filter: blur(12px);
+            transition: all 0.4s ease;
+            animation: outputGlow 2s infinite;
         }
-
+        @keyframes outputGlow {
+            0%, 100% { transform: scale(1); opacity: 0.9; box-shadow: 0 0 25px rgba(0, 255, 204, 0.4); }
+            50% { transform: scale(1.03); opacity: 1; box-shadow: 0 0 35px rgba(0, 255, 204, 0.6); }
+        }
         #output:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            transform: scale(1.06);
+            box-shadow: 0 0 40px rgba(0, 255, 204, 0.7);
         }
 
+        /* Command history log */
+        #command-history {
+            position: absolute;
+            bottom: 60px;
+            left: 20px;
+            width: 300px;
+            max-height: 200px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            color: #ff00cc;
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(255, 0, 204, 0.3);
+            opacity: 0.9;
+        }
+        #command-history p {
+            margin: 5px 0;
+            animation: logFade 1s ease-in;
+        }
+        @keyframes logFade {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
         footer {
             position: absolute;
             bottom: 20px;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            color: rgba(0, 255, 204, 0.8);
+            z-index: 2;
         }
-
         footer a {
-            color: #00c6ff;
+            color: #ff00cc;
             text-decoration: none;
+            transition: all 0.3s ease;
         }
-
         footer a:hover {
             text-decoration: underline;
+            text-shadow: 0 0 10px #ff00cc;
         }
     </style>
 </head>
 <body>
-    <h1>Aves AI Assistant</h1>
+    <!-- Fractal particle background -->
+    <div class="fractal-bg">
+        <div class="fractal-particle"></div>
+        <div class="fractal-particle"></div>
+        <div class="fractal-particle"></div>
+        <div class="fractal-particle"></div>
+        <div class="fractal-particle"></div>
+    </div>
 
-    <!-- Ad Section -->
+    <!-- Neural network overlay -->
+    <div class="neural-net">
+        <div class="neural-line"></div>
+        <div class="neural-line"></div>
+        <div class="neural-line"></div>
+        <div class="neural-node"></div>
+        <div class="neural-node"></div>
+        <div class="neural-node"></div>
+    </div>
+
+    <h1>Aves AI 2.8</h1>
+
+    <!-- Ad Section (unchanged) -->
     <div>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6730038089764028"
              crossorigin="anonymous"></script>
-        <!-- NEw -->
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-6730038089764028"
@@ -157,17 +308,20 @@
         <button onclick="login()">Login</button>
     </div>
 
-    <!-- The Aves AI Assistant -->
+    <!-- Assistant Section -->
     <div id="assistant-section">
         <button onclick="startListening()">
-            <i class="fas fa-microphone"></i> Talk to Aves AI
+            <i class="fas fa-microphone"></i> Talk to Aves
         </button>
         <div id="output">Hi there! How can I assist you today?</div>
     </div>
 
+    <!-- Command History -->
+    <div id="command-history"></div>
+
     <!-- Footer -->
     <footer>
-        Powered by <a href="#">AVES AI</a>
+        Powered by <a href="#">Venuja Sathsara</a>
     </footer>
 
     <script>
@@ -184,6 +338,17 @@
         recognition.interimResults = false;
         recognition.maxAlternatives = 1;
 
+        const commandHistory = document.getElementById("command-history");
+
+        function addToHistory(command, response) {
+            const entry = document.createElement("p");
+            entry.innerText = `> ${command} | ${response}`;
+            commandHistory.insertBefore(entry, commandHistory.firstChild); // Newest at top
+            if (commandHistory.children.length > 10) {
+                commandHistory.removeChild(commandHistory.lastChild); // Limit to 10 entries
+            }
+        }
+
         function login() {
             const username = document.getElementById("username").value.trim();
             if (!username) {
@@ -194,69 +359,95 @@
             document.getElementById("login-section").style.display = "none";
             document.getElementById("assistant-section").style.display = "block";
 
-            const greetingMessage = `Hi ${username}, I'm Aves AI! How can I assist you today?`;
+            const greetingMessage = `Greetings ${username}, I am Aves AI 2.8. How may I assist you today?`;
             speak(greetingMessage);
             document.getElementById("output").innerText = greetingMessage;
+            addToHistory("Login", `User: ${username}`);
         }
 
         function startListening() {
             recognition.start();
             document.getElementById("output").innerText = "Listening...";
-            speak("I am ready to assist you.");
+            speak("Awaiting your command.");
         }
 
         recognition.onresult = (event) => {
             const command = event.results[0][0].transcript.toLowerCase();
-            document.getElementById("output").innerText = `You said: ${command}`;
+            document.getElementById("output").innerText = `Command received: ${command}`;
             processCommand(command);
         };
 
         function processCommand(command) {
+            let response = "";
             if (command.includes("open google")) {
-                speak("Opening Google");
+                speak("Opening Google now.");
                 window.open("https://www.google.com", "_blank");
+                response = "Google opened.";
             } else if (command.includes("time")) {
                 const time = new Date().toLocaleTimeString();
                 speak(`The current time is ${time}`);
+                document.getElementById("output").innerText = `Time: ${time}`;
+                response = `Time: ${time}`;
             } else if (command.includes("calculate")) {
                 try {
-                    const result = eval(command.replace("calculate", ""));
+                    const result = eval(command.replace("calculate", "").trim());
                     speak(`The result is ${result}`);
+                    document.getElementById("output").innerText = `Result: ${result}`;
+                    response = `Result: ${result}`;
                 } catch {
-                    speak("Sorry, I couldn't calculate that.");
+                    speak("Error in calculation.");
+                    document.getElementById("output").innerText = "Calculation error.";
+                    response = "Calculation error.";
                 }
             } else if (command.includes("tell me a joke")) {
                 const jokes = [
-                    "Why don't skeletons fight each other? They don't have the guts!",
-                    "Why did the scarecrow win an award? Because he was outstanding in his field!",
-                    "I told my computer I needed a break, now it won’t stop sending me Kit-Kats!",
+                    "Why don’t skeletons fight each other? They lack the guts.",
+                    "Why did the scarecrow win an award? He was outstanding in his field.",
+                    "I told my system I needed a break, now it’s sending me Kit-Kats.",
                 ];
                 const joke = jokes[Math.floor(Math.random() * jokes.length)];
                 speak(joke);
                 document.getElementById("output").innerText = joke;
+                response = joke;
             } else if (command.includes("weather")) {
+                // Note: Replace YOUR_API_KEY with a real OpenWeatherMap API key
                 fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=YOUR_API_KEY')
                     .then(response => response.json())
                     .then(data => {
-                        const weather = `The weather in ${data.name} is ${data.weather[0].description} with a temperature of ${(data.main.temp - 273.15).toFixed(2)}°C.`;
+                        const weather = `The weather in ${data.name} is ${data.weather[0].description}, temperature: ${(data.main.temp - 273.15).toFixed(2)}°C.`;
                         speak(weather);
                         document.getElementById("output").innerText = weather;
+                        addToHistory(command, weather);
+                    })
+                    .catch(() => {
+                        speak("Unable to retrieve weather data.");
+                        document.getElementById("output").innerText = "Weather data unavailable.";
+                        addToHistory(command, "Weather data unavailable.");
                     });
+                return; // Exit early since fetch is async
             } else if (command.includes("change background color")) {
-                document.body.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-                speak("Background color changed!");
+                const newColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+                document.body.style.backgroundColor = newColor;
+                speak("Background color updated.");
+                document.getElementById("output").innerText = "Background color changed.";
+                response = "Background color changed.";
             } else if (command.includes("open")) {
                 const website = command.replace("open", "").trim();
-                speak(`Opening ${website}`);
+                speak(`Opening ${website}.`);
                 window.open(`https://${website}.com`, "_blank");
+                response = `${website} opened.`;
             } else {
-                speak("I don't understand that command.");
+                speak("Command not recognized. Please try again.");
+                document.getElementById("output").innerText = "Unrecognized command.";
+                response = "Unrecognized command.";
             }
+            addToHistory(command, response);
         }
 
         recognition.onerror = (event) => {
             document.getElementById("output").innerText = `Error: ${event.error}`;
-            speak("Something went wrong. Please try again.");
+            speak("An error occurred. Please try again.");
+            addToHistory("Speech input", `Error: ${event.error}`);
         };
     </script>
 </body>
